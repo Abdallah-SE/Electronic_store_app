@@ -1,0 +1,19 @@
+<?php
+$_['text_error_req'] = ' you must fill %s  with value';
+$_['text_error_num'] = 'must be a number %s ';
+$_['text_error_float'] = 'must be a float %s ';
+$_['text_error_int'] = 'must be integral number %s ';
+$_['text_error_alpha'] = ' must contain a char just %s ';
+$_['text_error_alphanum'] = ' must conatian a mixture between char and number %s ';
+$_['text_error_eq'] = ' %s must equal to  %s ';
+$_['text_error_equal_field'] = ' %s must be equal to %s ';
+$_['text_error_lessThan'] = 'add lesser than %s ';
+$_['text_error_greaterThan'] = 'please add great number than %s ';
+$_['text_error_vDate'] = ' please add the date with correct pattern %s ';
+$_['text_error_vURL'] = 'ex: http://www.abc.com %s ';
+$_['text_error_vEmail'] ='ex: someone@mail.com %s ';
+$_['text_error_min'] = '%s  must contain at least %s ';
+$_['text_error_max'] = '%s  must contain at most %s ';
+$_['text_error_floatMatch'] =  '%s must be float number : %s number before the dot و %s number after the dot';
+$_['text_error_between'] =' %s value must between %s and %s digits';
+$_[''] = '';

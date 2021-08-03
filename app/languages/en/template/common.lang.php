@@ -1,0 +1,29 @@
+<?php
+$_['text_dashboard'] = 'Dashboard';
+$_['text_app_manger'] = 'App manger';
+$_['text_general_statistics'] = 'General statistics';
+$_['text_users'] = 'Users';
+$_['text_users_list'] = 'Users list';
+$_['text_users_groups'] = 'Users group';
+$_['text_users_privileges'] = 'Privileges';
+$_['text_store'] = 'Store';
+$_['text_store_categories'] = 'Product categories';
+$_['text_products'] = 'Products';
+$_['text_clients'] = 'Clients';
+$_['text_suppliers'] = 'Suppliers';
+$_['text_expensives'] = 'Expensives';
+$_['text_expensives_categories'] = 'Expensives categories';
+$_['text_expensives_daily'] = 'Daily expensives';
+$_['text_transactions'] = 'Transactions';
+$_['text_transactions_purchases'] = 'Purchases';
+$_['text_transactions_sales'] = 'Sales';
+$_['text_reports'] = 'Reports';
+$_['text_notifications'] = 'Notifications';
+$_['text_change_lang'] = 'Change the language';
+$_['text_logout'] = 'Logout';
+$_['text_profile'] = 'My Profile';
+$_['text_change_password'] = 'Change password';
+$_['text_account_settings'] = 'Account settings';
+$_['text_welcome'] = 'Welcome';
+$_['text_not_found'] = 'Sorry! the page not found';
+
