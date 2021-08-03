@@ -3,5 +3,5 @@
 ```
  -The roles of the users
  -Manage users, groups and privileges
- -Alot of perations to users and groups
+ -A lot of operations to users and groups
  -......
