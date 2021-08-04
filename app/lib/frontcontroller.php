@@ -5,6 +5,7 @@ use PHPMVC\LIB\Helper;
 class FrontController{
     
     use Helper;
+    
     const NOT_FOUND_ACTION = 'notFoundAction';
     const NOT_FOUND_CONTROLLER = 'PHPMVC\Controllers\NotFoundController';
     private $_controller = 'index';
