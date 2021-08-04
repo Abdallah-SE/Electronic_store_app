@@ -1,7 +1,10 @@
 <?php
 namespace PHPMVC\LIB;
 use PHPMVC\LIB\Template\Template;
+use PHPMVC\LIB\Helper;
 class FrontController{
+    
+    use Helper;
     const NOT_FOUND_ACTION = 'notFoundAction';
     const NOT_FOUND_CONTROLLER = 'PHPMVC\Controllers\NotFoundController';
     private $_controller = 'index';
@@ -36,10 +39,16 @@ class FrontController{
         $controllerClassName = ucfirst('PHPMVC\Controllers\\'.$this->_controller)."Controller";
         $actionName = $this->_action.'Action';
         if(!$this->_authentication->checkAuthorized()){
-            $controllerClassName = ucfirst('PHPMVC\Controllers\\'."AuthenticatingController");
+            /*$controllerClassName = ucfirst('PHPMVC\Controllers\\'."AuthenticatingController");
             $actionName = 'loginAction';
             $this->_controller = 'Authenticating';
-            $this->_action = 'login';
+            $this->_action = 'login';*/
+        //another redirect to the login page for who not authorized
+        if($this->_controller !== 'Authenticating' && $this->_action !== 'login'){
+            
+            $this->redirect('Authenticating/login');
+            
+        }
         }
         if(!class_exists($controllerClassName)){
             $controllerClassName = self::NOT_FOUND_CONTROLLER;
