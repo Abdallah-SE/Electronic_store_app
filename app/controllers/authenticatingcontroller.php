@@ -4,6 +4,7 @@ use PHPMVC\Models\UserModel;
 use PHPMVC\LIB\Messenger;
 use PHPMVC\LIB\Helper;
 class AuthenticatingController extends AbstractController{
+    use Helper;
     public function loginAction(){
         $this->language->load('Authenticating.login');
         // fun for swapp the unwanted templates
@@ -12,6 +13,7 @@ class AuthenticatingController extends AbstractController{
                     ':view' => ':action_view'
                 ]
                 );
+        // if the user submit the login of the form
         if(isset($_POST['login'])){
             $_user = UserModel::authenticatingUser($_POST['ucname'], $_POST['ucpwd'], $this->session); 
                     if($_user == 1){
