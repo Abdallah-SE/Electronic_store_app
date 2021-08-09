@@ -45,11 +45,13 @@ class FrontController{
             $this->_controller = 'Authenticating';
             $this->_action = 'login';*/
         //another redirect to the login page for who not authorized
-        if($this->_controller !== 'Authenticating' && $this->_action !== 'login'){
-            
-            $this->redirect('Authenticating/login');
-            
+        if($this->_controller != 'authenticating' && $this->_action != 'login'){
+            $this->redirect('authenticating/login');
         }
+        }else {
+            if($this->_controller == 'authenticating' && $this->_action == 'login'){
+                isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirect('/');
+            }
         }
         if(!class_exists($controllerClassName)){
             $controllerClassName = self::NOT_FOUND_CONTROLLER;
