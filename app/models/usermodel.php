@@ -10,7 +10,10 @@ class UserModel extends AbstractModel{
     public $LastLogin;
     public $GroupID;
     public $Status;
-
+    
+    // to get the profile of the user
+    public $profile;
+    public $privileges;
     public static $tableName = 'app_users';
     public static $tableSchema = array(
         'UserID'             =>self::DATA_TYPE_INT,
@@ -32,10 +35,10 @@ class UserModel extends AbstractModel{
        $this->Password = crypt($password, MIXTURECHARS_SALT);
  }
     // override the getall fun
-      public static function getUsers()
+      public static function getUsers(UserModel $user)
     {
         return self::get(
-        'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupID = au.GroupID'
+        'SELECT au.*, aug.GroupName GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupID = au.GroupID WHERE au.UserID != '. $user->UserID
         );
     }
     //TODO:: Learn how to use header to ensure the data of ajacx be return succesfully
@@ -46,7 +49,7 @@ class UserModel extends AbstractModel{
     // check success or failed  user login
     public static function authenticatingUser($userName, $password, $session){
         $_password = crypt($password, MIXTURECHARS_SALT);
-        $sql = 'SELECT * FROM '. self::$tableName .' WHERE Username = "'.$userName.'" AND Password = "'.$_password.'"';
+        $sql = 'SELECT *, (SELECT GroupName FROM app_users_groups WHERE app_users_groups.GroupID = ' . self::$tableName .'.GroupID) GroupName FROM '. self::$tableName .' WHERE Username = "'.$userName.'" AND Password = "'.$_password.'"';
         $found_user = self::getOne($sql);
         if(FALSE !== $found_user){
             if($found_user->Status == 2){
@@ -54,6 +57,9 @@ class UserModel extends AbstractModel{
             }
             $found_user->LastLogin = date('y-m-d H:I:S');
             $found_user->save();
+            
+            $found_user->profile = UserProfileModel::getByPK($found_user->UserID);
+            $found_user->privileges = UserGroupPrivilegeModel::getURLGroupPrivileges($found_user->GroupID);
             $session->user = $found_user;
             return 1;
         }
