@@ -1,9 +1,9 @@
 <?php
 namespace PHPMVC\Controllers;
 
-class NotFoundController extends AbstractController
+class AccessDeniedController extends AbstractController
 {
-    public function notFoundAction(){
+    public function defaultAction(){
         $this->language->load('template.common');
         return $this->_view();
     }
