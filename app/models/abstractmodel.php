@@ -1,7 +1,6 @@
 <?php
 namespace PHPMVC\Models;
 use PHPMVC\Lib\Database\DatabaseHandler;
-use PHPMVC\Models\Employee;
 class AbstractModel{
     const DATA_TYPE_BOOL = \PDO::PARAM_BOOL;
     const DATA_TYPE_STR = \PDO::PARAM_STR;
@@ -45,7 +44,10 @@ class AbstractModel{
         $this->prepareValues($stmt);
         return $stmt->execute();
     }    
-    public function save(){
+    public function save($checkPK = TRUE){
+        if($checkPK === FALSE){
+            return $this->create();
+        }
         return $this->{static::$primaryKey}===NULL? $this->create():$this->update();
     }
 
