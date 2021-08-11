@@ -2,12 +2,16 @@
 namespace PHPMVC\Controllers;
 use PHPMVC\Models\UserModel;
 use PHPMVC\Models\UserGroupModel;
+use PHPMVC\Models\UserProfileModel;
+use PHPMVC\Models\UserGroupPrivilegeModel;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Helper;
 use PHPMVC\lib\Messenger;
 class UsersController extends AbstractController {
     private $_createRules = [
-        'userName'        => 'req|alphanum|between(3,10)',
+        'firstName'        => 'req|alpha|between(3,10)',
+        'secondName'        => 'req|alpha|between(3,10)',
+        'userName'        => 'req|alphanum|between(3,15)',
         'password'        => 'req|min(6)|equal_field(cPassword)',
         'cPassword'       => 'req|min(6)',
         'email'           => 'req|vEmail|equal_field(cEmail)',
@@ -24,10 +28,11 @@ class UsersController extends AbstractController {
     public function defaultAction(){
         $this->language->load('template.common');
         $this->language->load('users.default');
-       $this->_data['users'] = UserModel::getUsers();
+       $this->_data['users'] = UserModel::getUsers($this->session->user);
        return $this->_view();
     }
     
+    // create a new user
     public function createAction(){
         $this->language->load('template.common');
         $this->language->load('users.create');
@@ -51,6 +56,11 @@ class UsersController extends AbstractController {
             }
             // TODO:: task to  handle WELCOME EMAIL to new user
             if($user_obj->save()){
+                $newUserProfile = new UserProfileModel();
+                $newUserProfile->UserID = $user_obj->UserID;
+                $newUserProfile->FirstName = $this->filterStr($_POST['firstName']);
+                $newUserProfile->LastName = $this->filterStr($_POST['secondName']);
+                $newUserProfile->save(FALSE);
                 $this->messeger->add($this->language->get('message_create_success'));
                 $this->redirect('/users');
             }  else {
@@ -59,6 +69,7 @@ class UsersController extends AbstractController {
         }
         return $this->_view();
     }  
+    // edit an existing user data
     public function editAction(){
         $this->language->load('template.common');
         $this->language->load('users.edit');
@@ -68,7 +79,8 @@ class UsersController extends AbstractController {
         // get  the id of selected user to edit 
         $id = $this->filterInt($this->_params[0]);
         $user = UserModel::getByPK($id);
-        if($user === FALSE){
+        // check for if the user exists or trying the user who already login to edit himself
+        if($user === FALSE || $this->session->user->UserID == $id){
             $this->redirect('/users');
         }
         $this->_data['user'] = $user;
@@ -85,12 +97,15 @@ class UsersController extends AbstractController {
         }
         return $this->_view();
     }     
+    // selected user to be deleted
     public function deleteAction(){
+        $this->language->load('users.messages');
         // get  the id of selected user to edit 
         $id = $this->filterInt($this->_params[0]);
         $user = UserModel::getByPK($id);
         
-        if($user === FALSE || isset($_GET)){
+        if($user === FALSE || $this->session->user->UserID == $id){
+        $this->messeger->add($this->language->get('message_delete_failed'), Messenger::ERROR_MESSEEGE);
         $this->redirect('/users');
         }
         $this->language->load('users.messages');
