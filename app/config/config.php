@@ -29,3 +29,4 @@ defined('SESSION_NAME_PATH') ? null : define ('SESSION_NAME_PATH', dirname(realp
 // salt for password crypt
 defined('MIXTURECHARS_SALT')     ? null : define ('MIXTURECHARS_SALT', '$2a$07$yeNCSNwRpYopOhv0TrrReP$');
 
+defined('OPEN_LOCK_PRIVILEGES')     ? null : define ('OPEN_LOCK_PRIVILEGES', 0);
