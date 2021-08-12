@@ -1,6 +1,8 @@
 <?php
 $_['text_legend'] = 'User Info';
 $_['text_label_userName'] = 'User name';
+$_['text_label_firstName'] = 'First Name';
+$_['text_label_secondName'] = 'Second Name';
 $_['text_label_password'] = 'User password';
 $_['text_label_cPassword'] = 'User password conforming';
 $_['text_label_email'] = 'Email';
