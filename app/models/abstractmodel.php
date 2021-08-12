@@ -130,6 +130,9 @@ class AbstractModel{
         $result = static::get($sql, $options);
         return $result === false ? false : $result->current();
     }
-        
+    ///return the table name
+   public static function getModelTableName(){
+      return static::$tableName;
+    }
 }
     
