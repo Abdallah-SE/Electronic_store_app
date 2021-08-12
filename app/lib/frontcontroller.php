@@ -53,7 +53,7 @@ class FrontController{
                 isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirect('/');
             }
             //TEMPORARILY CLOSE OR OPEN THE PRIVILEGE FEATURE
-            if((bool)OPEN_LOCK_PRIVILEGES === FALSE){
+            if((bool)OPEN_LOCK_PRIVILEGES === TRUE){
                 // check if the user have the ability to access particular page
                 if(!$this->_authentication->checkForAccess($this->_controller, $this->_action)){
                     $this->redirect('accessdenied');
