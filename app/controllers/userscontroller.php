@@ -9,8 +9,8 @@ use PHPMVC\LIB\Helper;
 use PHPMVC\lib\Messenger;
 class UsersController extends AbstractController {
     private $_createRules = [
-        'firstName'        => 'req|alpha|between(3,10)',
-        'secondName'        => 'req|alpha|between(3,10)',
+        'FirstName'       => 'req|alpha|between(3,10)',
+        'LastName'      => 'req|alpha|between(3,10)',
         'userName'        => 'req|alphanum|between(3,15)',
         'password'        => 'req|min(6)|equal_field(cPassword)',
         'cPassword'       => 'req|min(6)',
@@ -26,6 +26,7 @@ class UsersController extends AbstractController {
     use InputFilter;
     use Helper;
     public function defaultAction(){
+        //var_dump(UserModel::getModelTableName());
         $this->language->load('template.common');
         $this->language->load('users.default');
        $this->_data['users'] = UserModel::getUsers($this->session->user);
@@ -58,8 +59,8 @@ class UsersController extends AbstractController {
             if($user_obj->save()){
                 $newUserProfile = new UserProfileModel();
                 $newUserProfile->UserID = $user_obj->UserID;
-                $newUserProfile->FirstName = $this->filterStr($_POST['firstName']);
-                $newUserProfile->LastName = $this->filterStr($_POST['secondName']);
+                $newUserProfile->FirstName = $this->filterStr($_POST['FirstName']);
+                $newUserProfile->LastName = $this->filterStr($_POST['LastName']);
                 $newUserProfile->save(FALSE);
                 $this->messeger->add($this->language->get('message_create_success'));
                 $this->redirect('/users');
