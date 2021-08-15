@@ -29,11 +29,11 @@ class CategoriesController extends AbstractController {
         $this->language->load('categories.labels');
         $this->language->load('validation.errors');
         $this->language->load('categories.messages');
-        
+        // TODO search for good solution for secure and check file type
         if(isset($_POST['submit']) && $this->isValidInput($this->_createRules, $_POST)){
             $category = new CategoryModel();
             $category->Name = $this->filterStr($_POST['Name']);
-            var_dump(new UploadHandler($_FILES['Image']));exit;
+            $category->Image = (new UploadHandler($_FILES['Image']))->uploadFile()->getFile();
             if($category->save()){
                 $this->messeger->add($this->language->get('message_create_success'));
                 $this->redirect('/categories');
