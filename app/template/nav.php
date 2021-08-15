@@ -20,7 +20,7 @@
             <a href="javascript:;"><i class="fa fa-database"></i><?= @$text_store;?></a>
             <ul>
                 <li>
-                    <a href="/productcategories"><i class="fa fa-shopping-basket"></i>
+                    <a href="/categories"><i class="fa fa-shopping-basket"></i>
                         <?= @$text_store_categories?>
                     </a>
                 </li>   
