@@ -30,3 +30,8 @@ defined('SESSION_NAME_PATH') ? null : define ('SESSION_NAME_PATH', dirname(realp
 defined('MIXTURECHARS_SALT')     ? null : define ('MIXTURECHARS_SALT', '$2a$07$yeNCSNwRpYopOhv0TrrReP$');
 
 defined('OPEN_LOCK_PRIVILEGES')     ? null : define ('OPEN_LOCK_PRIVILEGES', 0);
+// uploaded files cons URL position where it's been saving
+defined('UPLOAD_MEMORY') ? null : define ('UPLOAD_MEMORY', dirname(realpath(__FILE__)) .DS.'..' .DS. '..' .DS. 'uploads');
+defined('UPLOAD_MEMORY_IMG') ? null : define ('UPLOAD_MEMORY_IMG', UPLOAD_MEMORY .DS. 'img');
+defined('UPLOAD_MEMORY_DOC') ? null : define ('UPLOAD_MEMORY_DOC', UPLOAD_MEMORY .DS. 'doc');
+defined('UPLOAD_FILE_SIZE_ALLOWED') ? null : define ('UPLOAD_FILE_SIZE_ALLOWED', ini_get('upload_max_filesize'));
