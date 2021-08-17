@@ -1,20 +1,23 @@
-<form autocomplete="off" class="appForm clearfix" method="post" enctype="application/x-www-form-urlencoded">
+<form autocomplete="off" class="appForm clearfix" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend><?= @$text_legend;?></legend>
         <div class="input_wrapper n100 padding">
-            <label class="floated"><?= @$text_label_group_title; ?></label>
-            <input required type="text" name="GroupName" id="GroupName" value="<?= $group->GroupName;?>" maxlength="30">
+            <label class="floated"><?= @$text_label_Name; ?></label>
+            <input required type="text" name="Name" id="Name" maxlength="35" value="<?= $this->displayValue('Name', $category)?>">
+        </div>   
+        <div class="input_wrapper n100">
+            <label class="floated" style="bottom: 40px; color:#408eba"><?= @$text_label_Image; ?></label>
+            <input  type="file"  name="Image" id="Image" maxlength="30" accept="image/*" value="<?= $this->displayValue('Image', $category)?>">
         </div>
-        <div class="input_wrapper_other">
-            <label><?= @$text_label_privilege;?></label>
-            <?php if($privileges !== FALSE):foreach ($privileges as $privilege): ?>
-            <label class="checkbox block">
-                <input type="checkbox" name="privileges[]" id="privileges" <?= in_array($privilege->PrivilegeID, $groupPrivileges)? 'checked' : ''; ?> value="<?= $privilege->PrivilegeID;?>">
-                <div class="checkbox_button"></div>
-                <span><?= $privilege->PrivilegeTitle;?></span>
-            </label>
-            <?php endforeach; endif; ?>
+        <?php if($category->Image !== '' && file_exists(UPLOAD_MEMORY_IMG. DS .$category->Image)):?>
+        <div class="input_wrapper_other n100">
+            <img src="/uploads/img/<?= $category->Image;?>" alt="<?= $category->Name;?>" width="30%"> 
         </div>
+        <?php  else:?>
+        <div class="input_wrapper_other n100">
+            <p class="message t3">Sorry this Category Not have a pic, you can add suitable one?</p>
+        </div>
+        <?php endif;?>
         <input class="no_float" type="submit" name="submit" value="<?= @$text_label_save ?>">
     </fieldset>
 </form>
