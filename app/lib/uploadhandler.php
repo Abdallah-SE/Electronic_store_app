@@ -18,6 +18,7 @@ class UploadHandler {
         $this->tmp_name = $file['tmp_name'];
         $this->error = $file['error'];
         $this->size = $file['size'];
+        $this->encrName_getExten();
     }
     // get the extension and encrypt name of the file
     public function encrName_getExten(){
@@ -29,7 +30,6 @@ class UploadHandler {
         return  $name;
     }
     public function checkExtension(){
-        $this->encrName_getExten();
         return in_array($this->file_extension, $this->extension_list,  $strict = false); 
     }
     // check the size of the file before  upload it
@@ -39,7 +39,7 @@ class UploadHandler {
         $unitFile = $ma[2][0];
         $conFileSize = ($unitFile == 'M') ?($this->size / 1024 / 1024) : ($this->size / 1024 / 1024 / 1024);
         $conFileSize = ceil($conFileSize);
-        return (bool)$conFileSize <= $maxFileSize;
+        return (bool) $conFileSize <= $maxFileSize;
     }
     public function checkImage(){
         return preg_match('/image/i', $this->type);
@@ -47,22 +47,23 @@ class UploadHandler {
     
     // get the file name with it's extension by merge
     public function getFile(){
-        return $this->name . '.' . $this->file_extension;
+        $actualName = $this->name . '.' . $this->file_extension;
+        return $actualName;
     }
     public function uploadFile(){
         if($this->error !=0){
-            trigger_error ('Error in upload this file please try again!', E_USER_WARNING);
+            throw new \Exception('Error in upload this file please try again!');
         } elseif (!$this->checkExtension()) {
-            trigger_error ('Not allowed file extension!', E_USER_WARNING);
+            throw new \Exception ('Not allowed file extension!', E_USER_WARNING);
         }  elseif (!$this->checkFileSize()) {
-            trigger_error('Size is not allowed', E_USER_ERROR);
+            throw new \Exception('Size is not allowed', E_USER_ERROR);
         }  else {
-            if($this->checkImage()){
-                move_uploaded_file($this->tmp_name, UPLOAD_MEMORY_IMG. DS . $this->getFile());
+            $FilePosition = $this->checkImage()? UPLOAD_MEMORY_IMG : UPLOAD_MEMORY_DOC;
+            if(is_writable($FilePosition)){
+                move_uploaded_file($this->tmp_name, $FilePosition. DS . $this->getFile());
             }  else {
-                move_uploaded_file($this->tmp_name, UPLOAD_MEMORY_DOC. DS . $this->getFile());
+                throw new \Exception('Folder is not writable!', E_USER_ERROR);
             }
-            echo 'The File is be uploaded correctly, please continue';
         }
         return $this;
     }
