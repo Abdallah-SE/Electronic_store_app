@@ -25,7 +25,7 @@
                     </a>
                 </li>   
                 <li>
-                    <a href="/productlist"><i class="fa fa-shopping-bag"></i>
+                    <a href="/prodcuts"><i class="fa fa-shopping-bag"></i>
                         <?= @$text_products?>
                     </a>
                 </li>
