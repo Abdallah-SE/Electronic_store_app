@@ -1,8 +1,5 @@
 <?php
 namespace PHPMVC\Controllers;
-use PHPMVC\Models\UserModel;
-use PHPMVC\Models\UserGroupModel;
-use PHPMVC\Models\UserProfileModel;
 use PHPMVC\Models\CategoryModel;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\UploadHandler;
@@ -43,7 +40,7 @@ class CategoriesController extends AbstractController {
                     $this->messeger->add($exc->getMessage(), Messenger::ERROR_MESSEEGE);
                     $uploadError = TRUE;
                 }
-                        }
+                 }
             if($uploadError === FALSE && $category->save()){
                 $this->messeger->add($this->language->get('message_create_success'));
                 $this->redirect('/categories');

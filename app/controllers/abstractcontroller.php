@@ -1,6 +1,7 @@
 <?php
 namespace PHPMVC\Controllers;
 use PHPMVC\LIB\Validate;
+use PHPMVC\LIB\FrontController;
 class AbstractController {
     use Validate;
     protected $_controller;
@@ -32,9 +33,8 @@ class AbstractController {
     }
 
     protected function _view(){
-   
             $view = VIEWS_PATH .DS.  $this->_controller . DS . $this->_action . '.view.php';
-            if($this->_action == \PHPMVC\LIB\FrontController::NOT_FOUND_ACTION || !file_exists($view)){
+            if($this->_action == FrontController::NOT_FOUND_ACTION || !file_exists($view)){
                 $view = VIEWS_PATH .DS. 'notfound' . DS . 'notfound.view.php';
             }
                 $this->_data =  array_merge($this->_data, $this->language->getListsOfWords());
