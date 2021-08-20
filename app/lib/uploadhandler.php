@@ -25,7 +25,6 @@ class UploadHandler {
         preg_match_all('/([a-z]{1,4})$/i', $this->name, $match);
         $this->file_extension = strtolower($match[0][0]);
         $name =  md5(strtolower(md5($this->name) .  time()));
-        $name = 'cat_'. $name;
         $this->name = $name;
         return  $name;
     }
