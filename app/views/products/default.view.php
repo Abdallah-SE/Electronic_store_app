@@ -16,14 +16,14 @@
             <?php if(false !== $products): foreach ($products as $product): ?>
                 <tr>
                     <td><?= $product->Name; ?></td>
-                    <td><?= $product->CategoryID; ?></td>
+                    <td><?= $product->categoryName; ?></td>
                     <td><?= $product->Quantity; ?></td>
                     <td><?= $product->BuyPrice; ?></td>
                     <td><?= $product->Unit; ?></td>
                     <td><?= $product->SellPrice; ?></td>
                     <td>
-                        <a href="/prodcuts/edit/<?= $user->UserID ?>"><i class="fa fa-edit"></i></a>
-                        <a href="/prodcuts/delete/<?= $user->UserID ?>" onclick="if(!confirm('<?= @$text_delete_confirm ?>')) return false;"><i class="fa fa-trash"></i></a>
+                        <a href="/products/edit/<?= $product->ProductID ?>"><i class="fa fa-edit"></i></a>
+                        <a href="/products/delete/<?= $product->ProductID ?>" onclick="if(!confirm('<?= @$text_delete_confirm ?>')) return false;"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; endif; ?>
